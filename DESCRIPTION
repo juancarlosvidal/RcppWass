@@ -1,12 +1,12 @@
 Package: RcppWass
 Type: Package
-Title: What the package does (short line)
+Title: Wasserstein regression 
 Version: 1.0
 Date: 2020-05-08
-Author: Juan Carlos Vidal
-Maintainer: Juan Carlos Vidal <juan.carlos.vidal@gmail.com>
-Description: Wasserstein regression 
-License: GPL-2
+Author: Who wrote it
+Maintainer: Juan Carlos Vidal Aguiar <juan.carlos.vidal@gmail.com>
+Description: Wasserstein regression and confidence band calculation
+License: GPL2
 Imports: Rcpp
 Depends: ggplot2, cowplot, dplyr, tidyr
 LinkingTo: Rcpp, RcppArmadillo
