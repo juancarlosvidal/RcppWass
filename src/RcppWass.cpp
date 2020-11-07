@@ -1,6 +1,6 @@
 // RcppWass.cpp: Rcpp/Wass glue
 //
-// Copyright (C) 2019 - 2020  Juan Carlos Vidal and Marcos Matabuena 
+// Copyright (C) 2019 - 2020  Juan Carlos Vidal and Marcos Matabuena
 //
 // This file is part of RcppWass.
 //
@@ -23,6 +23,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include "AlglibSolvers.h"
 #include "WassersteinRegression.h"
+#include "NadarayaRegression.h"
 #include "ConfidenceBand.h"
 
 
@@ -42,11 +43,8 @@ arma::vec quadprog(arma::mat A, arma::vec b, arma::mat C, arma::vec d, arma::vec
 
 
 
-
-
-
 // [[Rcpp::export]]
-Rcpp::List wasser(const arma::mat xfit, const arma::mat q, const arma::mat Q0, 
+Rcpp::List wasser(const arma::mat xfit, const arma::mat q, const arma::mat Q0,
                  const arma::mat xpred, const arma::vec t, const double qdmin) {
   wass::regression_struct result = wass::wasser(xfit, q, Q0, xpred, t, qdmin);
   return Rcpp::List::create(
@@ -69,7 +67,7 @@ Rcpp::List wasser(const arma::mat xfit, const arma::mat q, const arma::mat Q0,
 
 
 // [[Rcpp::export]]
-Rcpp::List confidence_band(const arma::mat xfit, const arma::mat xpred, const arma::mat Q_obs, 
+Rcpp::List confidence_band(const arma::mat xfit, const arma::mat xpred, const arma::mat Q_obs,
                      const arma::mat q_obs, const arma::vec t_vec, const double alpha) {
   wass::confidence_struct result = wass::confidence_band(xfit, xpred, Q_obs, q_obs, t_vec, alpha);
   return Rcpp::List::create(
@@ -87,5 +85,38 @@ Rcpp::List confidence_band(const arma::mat xfit, const arma::mat xpred, const ar
 
 
 
+// [[Rcpp::export]]
+Rcpp::List nadayara_pred(const arma::mat distancias, const arma::mat X, const arma::mat t,
+                         const arma::mat Y, const arma::mat hs) {
 
+  wass::nadaraya_struct result = wass::nadayara_pred(distancias, X, t, Y, hs);
+  return Rcpp::List::create(
+    Rcpp::Named("coefficients") = result.coefficients,
+    Rcpp::Named("residuals")    = result.residuals,
+    Rcpp::Named("r2")           = result.r2,
+    Rcpp::Named("error")        = result.error,
+    Rcpp::Named("r2_global")    = result.r2_global
+  );
+}
+
+
+// [[Rcpp::export]]
+Rcpp::List nadayara_reg(const arma::mat X, const arma::mat t, const arma::mat Y, const arma::mat hs,
+                        const arma::umat indices_1, const arma::umat indices_2) {
+
+  wass::nadaraya_struct result = wass::nadayara_reg(X, t, Y, hs, indices_1, indices_2);
+  return Rcpp::List::create(
+    Rcpp::Named("coefficients") = result.coefficients,
+    Rcpp::Named("residuals")    = result.residuals,
+    Rcpp::Named("r2")           = result.r2,
+    Rcpp::Named("error")        = result.error,
+    Rcpp::Named("r2_global")    = result.r2_global
+  );
+}
+
+
+// [[Rcpp::export]]
+arma::mat eucdistance1(arma::mat X, arma::mat t) {
+  return wass::eucdistance1(X,t);
+}
 

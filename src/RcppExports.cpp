@@ -66,12 +66,58 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// nadayara_pred
+Rcpp::List nadayara_pred(const arma::mat distancias, const arma::mat X, const arma::mat t, const arma::mat Y, const arma::mat hs);
+RcppExport SEXP _RcppWass_nadayara_pred(SEXP distanciasSEXP, SEXP XSEXP, SEXP tSEXP, SEXP YSEXP, SEXP hsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type distancias(distanciasSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type t(tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type hs(hsSEXP);
+    rcpp_result_gen = Rcpp::wrap(nadayara_pred(distancias, X, t, Y, hs));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nadayara_reg
+Rcpp::List nadayara_reg(const arma::mat X, const arma::mat t, const arma::mat Y, const arma::mat hs, const arma::umat indices_1, const arma::umat indices_2);
+RcppExport SEXP _RcppWass_nadayara_reg(SEXP XSEXP, SEXP tSEXP, SEXP YSEXP, SEXP hsSEXP, SEXP indices_1SEXP, SEXP indices_2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type t(tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type hs(hsSEXP);
+    Rcpp::traits::input_parameter< const arma::umat >::type indices_1(indices_1SEXP);
+    Rcpp::traits::input_parameter< const arma::umat >::type indices_2(indices_2SEXP);
+    rcpp_result_gen = Rcpp::wrap(nadayara_reg(X, t, Y, hs, indices_1, indices_2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// eucdistance1
+arma::mat eucdistance1(arma::mat X, arma::mat t);
+RcppExport SEXP _RcppWass_eucdistance1(SEXP XSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(eucdistance1(X, t));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RcppWass_linear_solver", (DL_FUNC) &_RcppWass_linear_solver, 2},
     {"_RcppWass_quadprog", (DL_FUNC) &_RcppWass_quadprog, 6},
     {"_RcppWass_wasser", (DL_FUNC) &_RcppWass_wasser, 6},
     {"_RcppWass_confidence_band", (DL_FUNC) &_RcppWass_confidence_band, 6},
+    {"_RcppWass_nadayara_pred", (DL_FUNC) &_RcppWass_nadayara_pred, 5},
+    {"_RcppWass_nadayara_reg", (DL_FUNC) &_RcppWass_nadayara_reg, 6},
+    {"_RcppWass_eucdistance1", (DL_FUNC) &_RcppWass_eucdistance1, 2},
     {NULL, NULL, 0}
 };
 

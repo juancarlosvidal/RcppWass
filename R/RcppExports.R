@@ -17,3 +17,15 @@ confidence_band <- function(xfit, xpred, Q_obs, q_obs, t_vec, alpha) {
     .Call(`_RcppWass_confidence_band`, xfit, xpred, Q_obs, q_obs, t_vec, alpha)
 }
 
+nadayara_pred <- function(distancias, X, t, Y, hs) {
+    .Call(`_RcppWass_nadayara_pred`, distancias, X, t, Y, hs)
+}
+
+nadayara_reg <- function(X, t, Y, hs, indices_1, indices_2) {
+    .Call(`_RcppWass_nadayara_reg`, X, t, Y, hs, indices_1, indices_2)
+}
+
+eucdistance1 <- function(X, t) {
+    .Call(`_RcppWass_eucdistance1`, X, t)
+}
+
